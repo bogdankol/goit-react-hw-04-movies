@@ -1,0 +1,28 @@
+.div {
+    display: flex;
+    margin-left: 20px;
+}
+
+.img {
+    margin-right: 20px;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+}
+
+.item {
+    margin-right: 15px;
+}
+
+.additionalInfo {
+    padding: 15px 30px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+
+}
+
+.button {
+    padding: 5px;
+}

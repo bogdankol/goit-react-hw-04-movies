@@ -1,0 +1,17 @@
+.navigation {
+padding: 20px 25px;
+border-bottom: 1px solid grey;
+}
+
+
+.navLink {
+    color: #000;
+    font-size: 18px;
+}
+.navLink:first-child {
+    margin-right: 20px;
+}
+.active {
+    color: red;
+    font-size: 20px;
+}
