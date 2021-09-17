@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { fetchByQuery } from "../../../services/api";
-import s from './MoviesPage.module.css';
+import s from "./MoviesPage.module.css";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MoviesPage() {
   const [inputValue, setInputValue] = useState("");
@@ -33,6 +36,14 @@ function MoviesPage() {
           return Promise.reject(new Error("there was a mistake on servers..."));
         })
         .then(({ results }) => {
+          if (results.length === 0) {
+            toast("No results! I bet you find something next time", {
+              position: "top-center",
+              autoClose: 3000,
+              closeOnClick: true,
+            });
+            return;
+          }
           setArray(results);
           history.push({
             pathname: location.pathname,
@@ -65,6 +76,7 @@ function MoviesPage() {
       {error && <h2>{error}</h2>}
       {!error && (
         <div className={s.div}>
+          <ToastContainer />
           <form onSubmit={onSubmit}>
             <input type="text" value={inputValue} onChange={onChange} />
             <button type="submit">Search</button>

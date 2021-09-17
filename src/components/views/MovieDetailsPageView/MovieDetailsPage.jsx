@@ -21,6 +21,9 @@ function MovieDetailsPage() {
   const { url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const match = useRouteMatch();
+  const [from, setFrom] = useState(null);
+  
 
   useEffect(() => {
     fetchById(movieId)
@@ -34,25 +37,34 @@ function MovieDetailsPage() {
           )
         );
       })
-      .then((data) => setInfo(data))
+      .then((data) => {
+        setInfo(data)
+        setFrom(location?.state?.from?.location)
+        console.log(`MovieDetailsPage`, from, match)
+      })
       .catch((err) => setError(err.message));
   }, [movieId]);
 
   const onGoBack = (e) => {
-    history.push(location?.state?.from?.location ?? "/");
+    console.log(`onGoBackPressing`, from, match)
+    history.push(from ?? "/");
   };
 
   return (
     <>
-    {error && <h2>{error}</h2>}
+      {error && <h2>{error}</h2>}
       {info && (
         <>
           <button type="button" onClick={onGoBack} className={s.button}>
-            Push me and you'll see previous page :)
+            Go back
           </button>
           <div className={s.div}>
             <img
-              src={`https://image.tmdb.org/t/p/w300${info.poster_path}`}
+              src={
+                info.poster_path
+                  ? `https://image.tmdb.org/t/p/w300${info.poster_path}`
+                  : "https://iteam-by-goit.github.io/filmoteka/onerror.jpg"
+              }
               alt={info.title}
               className={s.img}
             ></img>
